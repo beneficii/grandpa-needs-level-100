@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50aa774ed200ee6459ef8bc491097a1a, type: 3}
+  m_Name: EnemyLevel4
+  m_EditorClassIdentifier: 
+  sprite: {fileID: -2851127834306816864, guid: 6a6fd0b7a766c1c4d8d89f08d8a253f6, type: 3}
+  removeSound: {fileID: 8300000, guid: cca272ba67d8dcf47b2710a6f6c6a088, type: 3}
+  size: 1
+  visuals: {fileID: 7762867268713176062, guid: d368e3dfb794ee846a518de8312f6404, type: 3}
+  maxHealth: 40
+  damage: 5
+  experience: 250
