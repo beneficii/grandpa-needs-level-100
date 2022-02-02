@@ -6,10 +6,11 @@ public class ScoreCtrl : MonoBehaviour
 {
     const string prefsString = "score_prefs";
     const string localPrefs = "local_score";
+    const string onlineName = "granpa_needs_level100_v1";
     public static int lastScore = 0;
 
-
-    public static void SendScore(string nickname)
+    /*
+    public static IEnumerator GetOnlineScore()
     {
         if (lastScore == 0) return;
         SetLocalScore(lastScore);
@@ -17,6 +18,30 @@ public class ScoreCtrl : MonoBehaviour
         scores.list.Add(new Score { name = nickname, time = lastScore });
         var json = JsonUtility.ToJson(scores);
         PlayerPrefs.SetString(prefsString, json);
+    }
+
+    public static IEnumerator SendOnlineScore(string nickname, int time)
+    {
+        if (lastScore == 0) return;
+        SetLocalScore(lastScore);
+        var scores = GetScores();
+        scores.list.Add(new Score { name = nickname, time = lastScore });
+        var json = JsonUtility.ToJson(scores);
+        PlayerPrefs.SetString(prefsString, json);
+    }*/
+
+    public static IEnumerator SendScore(string nickname)
+    {
+        if (lastScore == 0) yield break;
+
+        SetLocalScore(lastScore);
+        var scores = GetScores();
+        scores.list.Add(new Score { name = nickname, time = lastScore });
+        var json = JsonUtility.ToJson(scores);
+        
+        PlayerPrefs.SetString(prefsString, json);
+
+        yield return ScoreAPI.PostScore(nickname, lastScore);
     }
 
     public static Scores GetScores()

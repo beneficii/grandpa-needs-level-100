@@ -40,16 +40,19 @@ public class UICtrl : MonoBehaviour
     {
         if(nicknameInput)
         {
-            if(nicknameInput.text.Length > 2)
-            {
-                ScoreCtrl.SendScore(nicknameInput.text);
-            }
-            else
+            if(nicknameInput.text.Length < 3)
             {
                 AddWarning("Nickname too short!");
                 return;
             }
         }
+
+        StartCoroutine(LoadOutroRoutine());
+    }
+
+    public IEnumerator LoadOutroRoutine()
+    {
+        yield return ScoreCtrl.SendScore(nicknameInput.text);
         SceneManager.LoadScene(outroScene);
     }
 

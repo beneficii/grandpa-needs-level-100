@@ -7,34 +7,38 @@ public class UIScoreList : MonoBehaviour
     public UILeaderBoardItem itemTemplate;
     public TextMeshProUGUI txtWarning;
 
-
     public int maxItems = 20;
 
-    private void Start()
+    void Start()
     {
-        txtWarning.gameObject.SetActive(false);
+        txtWarning.gameObject.SetActive(true);
+        txtWarning.SetText("Loading..");
 
-        var scores = ScoreCtrl.GetScores();
+        StartCoroutine(ScoreAPI.GetScore(HandleLoadedScores, HandleError));
+    }
 
-        foreach (var item in UIUtils.IterateFromTemplate(itemTemplate))
-        {
-            Destroy(item.gameObject);
-        }
+    public void HandleError(string message)
+    {
+        txtWarning.SetText($"Error: {message}");
+    }
 
-        if(scores.list.Count == 0)
+    public void HandleLoadedScores(ScoreData scores)
+    {
+        if (scores.data.Count == 0)
         {
             txtWarning.SetText("No scores yet!");
-            txtWarning.gameObject.SetActive(true);
             return;
         }
 
-        for (int i = 0; i < maxItems && i < scores.list.Count; i++)
+        txtWarning.gameObject.SetActive(false);
+
+        for (int i = 0; i < maxItems && i < scores.data.Count; i++)
         {
-            var score = scores.list[i];
+            var item = scores.data[i];
 
             var instance = UIUtils.CreateFromTemplate(itemTemplate);
 
-            instance.Init(i + 1, score.name, score.time);
+            instance.Init(i + 1, item.name, item.score);
         }
     }
 

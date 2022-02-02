@@ -56,12 +56,18 @@ public class Game : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.P))
         {
             Time.timeScale = 10f;
-           
         }
 
         if (Input.GetKeyDown(KeyCode.T))
         {
             resources.Add(ResourceType.SkillPoints, 100);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            resources.AddBoth(ResourceType.Health, 1000);
+            resources.Add(ResourceType.Damage, 100);
+            resources.Add(ResourceType.Level, 100);
         }
 #endif
     }
